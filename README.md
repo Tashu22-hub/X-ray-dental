@@ -37,7 +37,7 @@
 ```bash
 git clone https://github.com/Tashu22-hub/X-ray-dental
 
-##ATTACHED IMAGES - website looks like see images thier 
+##ATTACHED IMAGES - website looks like see images 
 ![main Screen](./ss/main.png)
 ![analysis Screen](./ss/analysis.png)
 ![success Screen](./ss/diag.png)
