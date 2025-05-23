@@ -6,3 +6,4 @@ python-multipart
 pillow
 numpy
 requests
+python-dotenv
