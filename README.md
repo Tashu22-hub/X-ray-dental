@@ -35,11 +35,16 @@
 ### 📂 Clone the Repository
 
 ```bash
-git clone https://github.com/Tashu22-hub/dental-X-ray
+git clone https://github.com/Tashu22-hub/X-ray-dental
 
-##local Screen 
-![main Screen](./ss/mainS.png)
+##ATTACHED IMAGES - website looks like see images thier 
+![main Screen](./ss/main.png)
 ![analysis Screen](./ss/analysis.png)
 ![success Screen](./ss/diag.png)
+
+runnig backend code : uvicorn main:app --reload
+output will be at  like : Uvicorn running on http://127.0.0.1:8000
+
+running frontend code : npm run dev
 
 
