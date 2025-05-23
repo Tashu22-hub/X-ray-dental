@@ -46,5 +46,8 @@ runnig backend code : uvicorn main:app --reload
 output will be at  like : Uvicorn running on http://127.0.0.1:8000
 
 running frontend code : npm run dev
+DEPLOYMENT ON SERVER :
+backend : deployed on render 
+frontend :deployed on vercel [https://x-ray-dental-frontend.vercel.app/]
 
 
