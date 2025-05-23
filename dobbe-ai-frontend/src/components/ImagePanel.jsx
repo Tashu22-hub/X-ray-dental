@@ -21,7 +21,7 @@ const ImagePanel = ({ onResult, previewUrl }) => {
       const res = await fetch("https://x-ray-dental-backned.onrender.com/upload-dicom/", {
         method: "POST",
         body: formData,
-      });
+      }); 
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.detail || "Upload failed");

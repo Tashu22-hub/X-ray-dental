@@ -26,3 +26,8 @@ typing-extensions
 typing-inspection
 urllib3
 uvicorn
+pydicom
+pylibjpeg
+pylibjpeg-libjpeg
+pylibjpeg-openjpeg
+python-gdcm
