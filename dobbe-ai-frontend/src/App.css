@@ -1,0 +1,23 @@
+.app {
+  display: flex;
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f7fb;
+  color: #333;
+}
+
+.left,
+.right {
+  flex: 1;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.left {
+  border-right: 1px solid #ccc;
+  background-color: #ffffff;
+}
+
+.right {
+  background-color: #fafafa;
+}

@@ -1,0 +1,8 @@
+libraries 
+fastapi
+uvicorn
+pydicom
+python-multipart
+pillow
+numpy
+requests

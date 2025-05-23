@@ -1,0 +1,35 @@
+.image-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  /* padding: 20px; */
+}
+
+.image-panel input[type="file"] {
+  padding: 8px;
+}
+
+.image-panel button {
+  padding: 10px 16px;
+  background-color: #004aad;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.image-panel button:disabled {
+  background-color: #8da9cc;
+  cursor: not-allowed;
+}
+
+.preview-image {
+  display: block;
+  max-width: 100%;
+  max-height: 500px;
+  margin-top: 1rem;
+  border: 1px solid #ccc;
+}
+
+

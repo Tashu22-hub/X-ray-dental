@@ -1,0 +1,38 @@
+.report-panel {
+  padding: 20px;
+  background-color: #e6e4ef;
+  border-left: 1px solid #ddd;
+  overflow-y: auto;
+  max-height: calc(100vh - 60px);
+}
+
+.single-report {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.report-image {
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0;
+}
+
+.download-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.download-btn:hover {
+  background-color: #45a049;
+}
+
+.placeholder {
+  color: #777;
+  font-style: italic;
+}
