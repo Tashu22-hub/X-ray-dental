@@ -18,7 +18,7 @@ const ImagePanel = ({ onResult, previewUrl }) => {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/upload-dicom/", {
+      const res = await fetch("https://x-ray-dental-backned.onrender.com/upload-dicom/", {
         method: "POST",
         body: formData,
       });
