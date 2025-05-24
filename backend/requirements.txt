@@ -31,3 +31,4 @@ pylibjpeg
 pylibjpeg-libjpeg
 pylibjpeg-openjpeg
 python-gdcm
+aiofiles
