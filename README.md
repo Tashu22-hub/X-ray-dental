@@ -15,7 +15,7 @@
 - 📄 Download diagnostic report as a PDF
 - 🔄 Loading spinners for API calls to improve UX
 - 📦 Dockerized backend and frontend for deployment
-- 🧪 Unit tests for backend endpoints
+- 🧪 Added spinner loading Feature
 
 ---
 
