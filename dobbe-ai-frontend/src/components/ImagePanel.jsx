@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import "./ImagePanel.css";
 
-const ImagePanel = ({ onResult, previewUrl }) => {
+const ImagePanel = ({ onResult, previewUrl, setIsLoading }) => {
   const [file, setFile] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -16,7 +15,7 @@ const ImagePanel = ({ onResult, previewUrl }) => {
     const formData = new FormData();
     formData.append("file", file);
 
-    setLoading(true);
+    setIsLoading(true); // use global spinner
     try {
       const res = await fetch("https://x-ray-dental-backned.onrender.com/upload-dicom/", {
         method: "POST",
@@ -31,16 +30,16 @@ const ImagePanel = ({ onResult, previewUrl }) => {
       console.error("❌ Upload error:", err);
       alert(err.message || "Something went wrong");
     } finally {
-      setLoading(false);
+      setIsLoading(false); // stop global spinner
     }
   };
 
   return (
     <div className="image-panel">
       <h2>🦷 Dental X-Ray Uploader</h2>
-      <input type="file"  accept=".dcm,.rvg" multiple onChange={handleFileChange} />
-      <button onClick={handleUpload} disabled={loading}>
-        {loading ? "Analyzing..." : "Predict"}
+      <input type="file" accept=".dcm,.rvg" multiple onChange={handleFileChange} />
+      <button onClick={handleUpload}>
+        Predict
       </button>
       {previewUrl && (
         <img
@@ -55,4 +54,3 @@ const ImagePanel = ({ onResult, previewUrl }) => {
 };
 
 export default ImagePanel;
- 
