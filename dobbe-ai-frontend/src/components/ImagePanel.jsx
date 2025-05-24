@@ -30,7 +30,7 @@ const ImagePanel = ({ onResult, previewUrl, setIsLoading }) => {
       console.error("❌ Upload error:", err);
       alert(err.message || "Something went wrong");
     } finally {
-      setIsLoading(false); // stop global spinner
+      setIsLoading(false); // stop global spinner 
     }
   };
 
