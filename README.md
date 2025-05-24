@@ -26,7 +26,7 @@
 - **Model APIs**: Roboflow (Object Detection), OpenAI GPT-4 (NLP)
 - **Image Processing**: Pillow, pydicom
 - **PDF Generation**: jsPDF
-- **Deployment**: Docker
+- **Deployment**: Docker , render(backend) , vercel(frontend)
 
 ---
 
