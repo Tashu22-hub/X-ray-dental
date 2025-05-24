@@ -28,7 +28,7 @@ function App() {
         <ImagePanel 
           onResult={handleResult} 
           previewUrl={previewUrl} 
-          setIsLoading={setIsLoading} // ✅ pass to ImagePanel
+          setIsLoading={setIsLoading} // ✅ pass to imagepanel
         />
       </div>
       <div className="right">
