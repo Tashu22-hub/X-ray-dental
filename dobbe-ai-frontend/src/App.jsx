@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ImagePanel from "./components/ImagePanel";
 import Navbar from "./components/Navabr";
 import ReportPanel from "./components/ReportPanel";
-import Spinner from './components/Spinner';
+import Spinner from "./components/Spinner";
 import "./App.css";
 
 function App() {
