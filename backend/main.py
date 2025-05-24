@@ -8,15 +8,16 @@ import numpy as np
 import base64
 from io import BytesIO
 import os
+import aiofiles
 
-from roboflow_utils import send_to_roboflow, draw_predictions  # Make sure roboflow.py is in the same folder
+from roboflow_utils import send_to_roboflow, draw_predictions
 from report_generator import generate_report
+
 app = FastAPI()
 
-# Allow frontend access
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # or use ["http://localhost:3000"]
+    allow_origins=["*"],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -30,11 +31,10 @@ async def upload_dicom(file: UploadFile = File(...)):
         temp_path = f"temp/{file.filename}"
         png_path = temp_path.replace(".dcm", ".png")
 
-        # Save uploaded DICOM file
-        with open(temp_path, "wb") as f:
-            f.write(contents)
+        # Async write DICOM file to disk for faster IO
+        async with aiofiles.open(temp_path, "wb") as f:
+            await f.write(contents)
 
-        # Read DICOM
         ds = pydicom.dcmread(temp_path)
         arr = apply_voi_lut(ds.pixel_array, ds)
 
@@ -44,29 +44,22 @@ async def upload_dicom(file: UploadFile = File(...)):
         arr = arr - np.min(arr)
         arr = arr / np.max(arr)
         arr = (arr * 255).astype(np.uint8)
-        
-        
 
-        # Save image as PNG for Roboflow
-        image = Image.fromarray(arr)
-        # Resize image before converting to PNG- reducing latency to upload image to roboflow 
-        image = Image.fromarray(arr).resize((512, 512))
-
+        # Create PIL Image once and resize once to 512x512 (reduce upload size)
+        image = Image.fromarray(arr).resize((256, 256))
         image.save(png_path)
 
-        # 🔍 Call Roboflow API
-        predictions = send_to_roboflow(png_path)
+        # Roboflow API call - async for non-blocking
+        predictions = await send_to_roboflow(png_path)
 
-        # 🎯 Draw predictions on image
+        # Draw bounding boxes on the resized image
         annotated_img = draw_predictions(png_path, predictions)
 
-        # 🔄 Convert annotated image to base64
+        # Encode to base64 for frontend
         buffered = BytesIO()
         annotated_img.save(buffered, format="PNG")
         annotated_img_b64 = base64.b64encode(buffered.getvalue()).decode()
 
-        # Diagnostic summary
-         # 🧠 Generate report
         report = generate_report(predictions)
 
         return {

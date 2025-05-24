@@ -2,15 +2,17 @@ import os
 import requests
 from typing import Dict, Any, List
 from dotenv import load_dotenv
-from PIL import Image, ImageDraw, ImageFont
-import json
+from PIL import Image, ImageDraw
+
+import asyncio
+import aiofiles
 
 load_dotenv()
 
 ROBOFLOW_API_KEY = os.getenv("ROBOFLOW_API_KEY")
 ROBOFLOW_MODEL_URL = "https://detect.roboflow.com/adr/6"
 
-def send_to_roboflow(image_path: str, confidence=0.3, overlap=0.5) -> List[Dict[str, Any]]:
+async def send_to_roboflow(image_path: str, confidence=0.3, overlap=0.5) -> List[Dict[str, Any]]:
     if not ROBOFLOW_API_KEY:
         raise ValueError("ROBOFLOW_API_KEY environment variable not set.")
 
@@ -20,14 +22,22 @@ def send_to_roboflow(image_path: str, confidence=0.3, overlap=0.5) -> List[Dict[
         "overlap": overlap,
     }
 
+    # Read image file asynchronously
+    async with aiofiles.open(image_path, "rb") as f:
+        image_bytes = await f.read()
+
+    # Use run_in_executor to avoid blocking event loop on requests.post (which is sync)
+    loop = asyncio.get_event_loop()
+    response = await loop.run_in_executor(
+        None,
+        lambda: requests.post(ROBOFLOW_MODEL_URL, params=params, files={"file": image_bytes})
+    )
+
     try:
-        with open(image_path, "rb") as image_file:
-            files = {"file": image_file}
-            response = requests.post(ROBOFLOW_MODEL_URL, params=params, files=files)
-            response.raise_for_status()
-            response_json = response.json()
-            print("📦 Roboflow raw response:", response_json)
-            return response_json.get("predictions", [])
+        response.raise_for_status()
+        response_json = response.json()
+        print("📦 Roboflow raw response:", response_json)
+        return response_json.get("predictions", [])
     except requests.exceptions.RequestException as e:
         print(f"[Roboflow API Error] {e}")
         return []
@@ -50,7 +60,6 @@ def draw_predictions(image_path: str, predictions: List[Dict[str, Any]]) -> Imag
         bottom = y + height / 2
 
         draw.rectangle([left, top, right, bottom], outline="red", width=2)
-
         label = f"{class_name} ({confidence:.2f})"
         draw.text((left + 4, top + 4), label, fill="red")
 
