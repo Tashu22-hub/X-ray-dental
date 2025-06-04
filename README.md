@@ -5,7 +5,7 @@
 ---
 
 ## 📁 Features
-
+ 
 ### ✅ Core Functionalities
 - 📤 Upload DICOM/RVG files (dental X-rays)
 - 📸 Converts and displays X-ray as PNG with overlaid bounding boxes
